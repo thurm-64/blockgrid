@@ -121,9 +121,13 @@ function createGrid() {
 		   image.height = 32;
 		   image.style = "background-color:skyblue"
 		   image.onclick = function() {
-		   
+		        if(this.tile == tile.air) {
+				this.tile = selectedTile;
 		   	this.src = selectedTile.texture;
-		   
+			} else {
+				this.tile = block.air;
+		   	this.src = selectedTile.texture;
+			}
 		   }
 		   document.body.appendChild(image);
 		
