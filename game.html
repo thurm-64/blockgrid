@@ -1,0 +1,402 @@
+
+<body width ="1000000" style="display: inline-block;  white-space: nowrap; margin:0px; background-color='blue'"></body> 
+<center style = "position: fixed; bottom: 30; width: 100%" id="hot"></center>
+<div style = "position: fixed; top: 30; right:100; width: 700px" id="hot"><input id="mar"></input><button onclick="eval(document.getElementById('mar').value)">Run</button></div>
+
+<style>
+	[datatitle]:hover:after {
+		opacity: 1;
+		transition: all 0.1s ease 0.5s;
+		visibility: visible;
+	}
+	[datatitle]:after {
+		content: attr(data-title);
+		background-color: #00FF00;
+		color: #111;
+		font-size: 150%;
+		position: absolute;
+		padding: 1px 5px 2px 5px;
+		bottom: -1.6em;
+		left: 100%;
+		white-space: nowrap;
+		box-shadow: 1px 1px 3px #222222;
+		opacity: 0;
+		border: 1px solid #111111;
+		z-index: 99999;
+		visibility: hidden;
+	}
+	[datatitle] {
+		position: relative;
+	}
+</style>
+<script>
+const block = {
+
+	air: {
+	
+			name: "Air",
+			texture: "data:image/gif;base64,R0lGODlhAQABAPAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
+		 
+	},  
+	rubyore: {
+	
+			name: "Ruby Ore",
+			texture: "textures/rubyore.png"
+	}, 
+	stone: {
+
+		name: "Stone",
+		texture: "textures/stone.png"
+	 
+	},
+	grass: {
+
+		name: "Grass",
+		texture: "textures/grass.png"
+	 
+	},
+	log: {
+
+		name: "Log",
+		texture: "textures/log.png"
+	 
+	},
+	dirt: {
+
+		name: "Dirt",
+		texture: "textures/dirt.png"
+	 
+	},
+	leaves: {
+
+		name: "Leaves",
+		texture: "textures/leaves.png"
+	 
+	},
+	gravel: {
+
+		name: "Gravel",
+		texture: "textures/gravel.png"
+	 
+	},
+	cactus: {
+
+		name: "Gravel",
+		texture: "textures/cactus.png"
+	 
+	},
+	goldore: {
+
+		name: "Gold Ore",
+		texture: "textures/goldore.png"
+	 
+	},
+	sand: {
+
+		name: "Sand",
+		texture: "textures/sand.png"
+	 
+	},
+	sandstone: {
+
+		name: "Sandstone",
+		texture: "textures/sandstone.png"
+	 
+	},
+};
+var selectedTile = block.cobblestone;
+const worldHeight = 32;
+const worldWidth = 256;
+//Graphics scripts
+function createGrid() {
+	for (var y = 0; y < worldHeight; y++) {
+		for (var x = 0; x < worldWidth; x++) {
+		   var image = document.createElement("img");
+		   
+		   var value = block.air;
+		   image.id = "block." + x + "." + y;
+		   image.tile = value;
+		   image.src = value.texture;
+		   image.width = 32;
+		   image.height = 32;
+		   image.style = "background-color:skyblue"
+		   image.onclick = function() {
+		   
+		   	this.src = selectedTile.texture;
+		   
+		   }
+		   document.body.appendChild(image);
+		
+		}
+		
+		document.body.appendChild(document.createElement("br"));
+		
+	}
+var hotbarElement = document.getElementById("hot"); 
+var hotbar = [block.stone,block.grass,block.log,block.dirt,block.leaves,block.gravel, block.rubyore]
+for (var i = 0; i < hotbar.length; i++) {
+var image = document.createElement("img");
+var value = hotbar[i]
+image.tile = value;
+image.src = value.texture;
+image.width = 32;
+image.height = 32;
+image.border = 3;
+image.style = "margin:3px"
+image.title = value.name;
+image.onclick = function() {
+selectedTile = this.tile;
+}
+
+hotbarElement.appendChild(image);
+}
+
+  
+}
+createGrid();
+/// Game scripts
+function placeBlock(x,y,type) {
+	var image = document.getElementById("block." + x + "." + y);
+	if(image != null) {
+	image.tile = type;
+	image.src = type.texture;
+
+	}
+
+}
+function fill(x1,y1,x2,y2,type) {
+	for(var x = x1; x < x2 + 1; x++) {
+		for(var y = y1; y < y2 + 1; y++) {
+			placeBlock(x,y,type);
+		}
+	}
+}
+
+const biome = {
+	
+	plains: {
+		topBlock: {
+			type: block.grass,
+			depth: 1
+		},
+		secondaryBlock: {
+			type: block.dirt,
+			depth: 3
+		},
+		baseBlock: block.stone,
+		terrainIntensity: 0.7,
+		biomeSizeMin: 10,
+		biomeSizeVariance: 20,
+		ores: [
+				{
+				type: block.rubyore,
+				min: 1,
+				max: 2,
+				tries: 1,
+				depth: [1, 10],
+				odds: 0.1
+				}
+			],
+		structures: [
+			{
+		    type: "tree",
+			odds: 0.01,
+			blocks: {
+				trunk: {
+					block: block.log,
+					height: 3
+					
+				},
+				leaves: {
+					block: block.leaves,
+					radius: 2
+					
+				}
+			}
+			
+			}
+		]
+		
+	},
+	
+	forest: {
+		topBlock: {
+			type: block.grass,
+			depth: 1
+		},
+		secondaryBlock: {
+			type: block.dirt,
+			depth: 3
+		},
+		baseBlock: block.stone,
+		terrainIntensity: 0.7,
+		biomeSizeMin: 10,
+		biomeSizeVariance: 20,
+		ores: [
+				{
+				type: block.rubyore,
+				min: 1,
+				max: 2,
+				tries:1,
+				depth: [1, 10],
+				odds: 0.1
+				},
+				{
+				type: block.gravel,
+				min: 1,
+				max: 2,
+				tries: 4,
+				depth: [1, 10],
+				odds: 0.4
+				}
+			],
+		structures: [
+			{
+			type: "tree",
+			odds: 0.10,
+			blocks: {
+				trunk: {
+					block: block.log,
+					height: 3
+				},
+				leaves: {
+					block: block.leaves,
+					radius: 3
+					
+				}
+			}
+			
+			},
+			{
+			type: "tree",
+			odds: 0.10,
+			blocks: {
+				trunk: {
+					block: block.log,
+					height: 4
+				},
+				leaves: {
+					block: block.leaves,
+					radius: 2
+					
+				}
+			}
+			
+			}
+		]
+		
+	},
+	desert: {
+		topBlock: {
+			type: block.sand,
+			depth: 1
+		},
+		secondaryBlock: {
+			type: block.sandstone,
+			depth: 4
+		},
+		baseBlock: block.stone,
+		terrainIntensity: 0.7,
+		biomeSizeMin: 10,
+		biomeSizeVariance: 20,
+		ores: [
+				{
+				type: block.rubyore,
+				min: 1,
+				max: 2,
+				tries:1,
+				depth: [1, 10],
+				odds: 0.1
+				},
+				{
+				type: block.gravel,
+				min: 1,
+				max: 2,
+				tries: 4,
+				depth: [1, 10],
+				odds: 0.4
+				},
+				{
+				type: block.goldore,
+				min: 1,
+				max: 2,
+				tries: 2,
+				depth: [1, 10],
+				odds: 0.4
+				}
+			],
+		structures: [
+			
+			
+		]
+		
+	}
+	
+	}
+var biomeTable = [biome.plains, biome.forest, biome.desert];
+function generateTerrain(startX, startY, biomeType) {
+	
+try{
+	var intensity = biomeType.terrainIntensity;
+	var topBlock = biomeType.topBlock;
+	var min = biomeType.biomeSizeMin;
+	var v = biomeType.biomeSizeVariance;
+	var finishX = startX + Math.round(min + (v * Math.random()))
+	var ry = startY;
+	for(var rx = startX; rx < finishX; rx++) {
+    var secHeight = y + biomeType.topBlock.depth + biomeType.secondaryBlock.depth;
+	ry = ry + ((0.5 - Math.random() )* intensity);
+	var y = Math.round(ry);
+	for(var i = 0; i < biomeType.structures.length; i++) {
+	var structure = biomeType.structures[i];
+	
+		if(Math.random() < structure.odds) {
+			if(structure.type == "tree") {
+		
+			fill(rx-structure.blocks.leaves.radius,y-1-2*(structure.blocks.leaves.radius) - structure.blocks.trunk.height,rx+structure.blocks.leaves.radius,y-1-structure.blocks.trunk.height, structure.blocks.leaves.block);
+			
+			fill(rx,y-structure.blocks.trunk.height,rx,y-1, structure.blocks.trunk.block);
+			
+			}
+		}
+	}
+	
+	fill(rx, y, rx, y + biomeType.topBlock.depth, biomeType.topBlock.type);
+	fill(rx, y + biomeType.topBlock.depth, rx, y + biomeType.secondaryBlock.depth, biomeType.secondaryBlock.type);
+	fill(rx, y + biomeType.topBlock.depth + biomeType.secondaryBlock.depth, rx, worldHeight, biomeType.baseBlock);
+    for(var i = 0; i < biomeType.ores.length; i++) {
+    	var ore = biomeType.ores[i];
+    var isOre = Math.random() < ore.odds;
+
+    if(isOre) {
+    var y = worldHeight + ore.depth[0] - Math.round((Math.random() * (ore.depth[1] - ore.depth[0])));
+    
+    placeBlock(rx, y, ore.type)
+    }
+    
+	}
+	
+	}
+	
+	return [finishX, Math.round(ry)];
+} catch(e) { window.alert(e); }
+}
+
+function generateTerrainRecursively(y) {
+var wx = 0;
+var wy = y;
+try{
+	while(wx < worldWidth) {
+		var biomeId = Math.floor( biomeTable.length * Math.random())
+		var biomeSel = biomeTable[biomeId];
+   
+	var loc = generateTerrain(wx,wy,biomeSel);
+    wx = loc[0];
+    wy = loc[1];
+
+	}
+} catch(e) {}
+document.getElementById("loader").parentNode.removeChild("loader");
+}
+generateTerrainRecursively(20);
+</script>
