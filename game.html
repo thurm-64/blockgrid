@@ -335,13 +335,13 @@ const biome = {
 		]
 		
 	},
-	plains: {
+	desert: {
 		topBlock: {
-			type: block.grass,
-			depth: 1
+			type: block.sand,
+			depth: 2
 		},
 		secondaryBlock: {
-			type: block.dirt,
+			type: block.sandstone,
 			depth: 3
 		},
 		baseBlock: block.stone,
@@ -361,15 +361,15 @@ const biome = {
 		structures: [
 			{
 		    type: "tree",
-			odds: 0.01,
+			odds: 0.04,
 			blocks: {
 				trunk: {
-					block: block.log,
+					block: block.cactus,
 					height: 3
 					
 				},
 				leaves: {
-					block: block.leaves,
+					block: block.air,
 					radius: 2
 					
 				}
