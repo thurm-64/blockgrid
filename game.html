@@ -452,5 +452,12 @@ try{
 } catch(e) {}
 document.getElementById("loader").parentNode.removeChild("loader");
 }
+	var playerX = 0; 
+	var playerY = 0;
 generateTerrainRecursively(20);
+function move() {
+location.href = "#";
+location.href = "#block." + playerX + "." + playerY;	
+}
+	setInterval(move, 10);
 </script>
