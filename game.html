@@ -456,9 +456,10 @@ document.getElementById("loader").parentNode.removeChild("loader");
 	var playerY = 0;
 generateTerrainRecursively(20);
 function move() {
-location.href = "#";
-location.href = "#block." + playerX + "." + playerY;	
 
+var name = "block." + playerX + "." + playerY;	
+	document.getElementById(name).scrollIntoView();
+setTimeout(move, 10);	
 }
-setInterval(move, 1);	
+
 </script>
