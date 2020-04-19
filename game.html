@@ -390,18 +390,22 @@ y -= 8;
 var name = "block." + x + "." + y;	
 	document.getElementById(name).scrollIntoView();
 }
-function move() {
-moveTo(playerX, playerY);
-	setTimeout(move, 10);
-}
-move();
-	document.body.onkeypress = function (e) {
-    e = e || window.event;
-    // use e.keyCod
-		
-		window.alert("pi");
-  
+	
+document.onkeydown = function(e) {
+    switch (e.keyCode) {
+        case 37:
+            alert('left');
+            break;
+        case 38:
+            alert('up');
+            break;
+        case 39:
+            alert('right');
+            break;
+        case 40:
+            alert('down');
+            break;
+    }
 };
- 
 
 </script>
