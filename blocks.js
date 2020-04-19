@@ -21,7 +21,7 @@ const block = {
 
 		name: "Grass",
 		texture: "textures/grass.png"
-	 
+
 	},
 	log: {
 
@@ -76,5 +76,11 @@ const block = {
 		name: "Diamond Ore",
 		texture: "textures/diamondore.png"
 	 
+	},
+	water: {
+
+		name: "Water",
+		texture: "textures/water.png",
+		isLiquid: true
 	},
 };
