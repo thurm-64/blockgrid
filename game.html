@@ -395,19 +395,12 @@ moveTo(playerX, playerY);
 	setTimeout(move, 10);
 }
 move();
-	document.onkeypress = function (e) {
+	document.body.onkeypress = function (e) {
     e = e || window.event;
     // use e.keyCod
-		var keyCode = window.keycode;
+		
 		window.alert("pi");
- switch (keyCode) {
-    case 68: //d
-    playerX += 1;
-    case 65: //a
-   playerX -= 1;
-    case 87: //w
-    //s can be left alone because no needy
-  }
+  
 };
  
 
