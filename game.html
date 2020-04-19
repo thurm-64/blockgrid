@@ -375,8 +375,8 @@ try{
 } catch(e) {}
 document.getElementById("loader").parentNode.removeChild("loader");
 }
-	var playerX = 0; 
-	var playerY = 0;
+	var playerX = 90; 
+	var playerY = 10;
 generateTerrainRecursively(20);
 function moveTo(x,y) {
 x -= 10; 
@@ -391,29 +391,47 @@ var name = "block." + x + "." + y;
 	document.getElementById(name).scrollIntoView();
 }
 function move() {
-moveTo(playerX, playerY);	
+moveTo(playerX, playerY);
+	setTimeout(move, 10);
+}
+move();
+window.addEventListener("keydown", onKeyDown, false);
+window.addEventListener("keyup", onKeyUp, false);
+function onKeyDown(event) {
+	window.alert("HelloWorld");
+  var keyCode = event.keyCode;
+  switch (keyCode) {
+    case 68: //d
+      keyD = true;
+      break;
+    case 83: //s
+      keyS = true;
+      break;
+    case 65: //a
+      keyA = true;
+      break;
+    case 87: //w
+      keyW = true;
+      break;
+  }
 }
 
-function keyDownHandler(event) {
-    if(event.keyCode == 39) {
-      //right
-	    playerX++;
-	   
-    }
-    else if(event.keyCode == 37) {
-      //left
-	    playerX--;
-    }
-    if(event.keyCode == 40) {
-      //down
-	    playerY++;
-    }
-    else if(event.keyCode == 38) {
-      //up
-	    playerY--;
-    }
-	window.alert("key press!");
-	 moveTo(playerX,playerY);
+function onKeyUp(event) {
+  var keyCode = event.keyCode;
+
+  switch (keyCode) {
+    case 68: //d
+      keyD = false;
+      break;
+    case 83: //s
+      keyS = false;
+      break;
+    case 65: //a
+      keyA = false;
+      break;
+    case 87: //w
+      keyW = false;
+      break;
+  }
 }
-		document.addEventListener('keydown', keyDownHandler, false);
 </script>
