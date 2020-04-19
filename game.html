@@ -267,7 +267,7 @@ const biome = {
 	desert: {
 		topBlock: {
 			type: block.sand,
-			depth: 2
+			depth: 1
 		},
 		secondaryBlock: {
 			type: block.sandstone,
@@ -378,9 +378,16 @@ document.getElementById("loader").parentNode.removeChild("loader");
 	var playerX = 0; 
 	var playerY = 0;
 generateTerrainRecursively(20);
-function move() {
-
-var name = "block." + playerX + "." + playerY;	
+function moveTo(x,y) {
+x -= 10; 
+y -= 8;
+	if(x < 0) {
+		x = 0;
+	}
+	if(y < 0) {
+		y = 0;
+	}
+var name = "block." + x + "." + y;	
 	document.getElementById(name).scrollIntoView();
 }
 
