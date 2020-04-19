@@ -96,6 +96,10 @@ function testBlock(x,y,type) {
 	}
 	return false;
 }
+function getBlock(x,y,type) {
+	var image = document.getElementById("block." + x + "." + y);
+	return image.tile;
+}
 		
 function placeBlock(x,y,type) {
 	var image = document.getElementById("block." + x + "." + y);
@@ -103,12 +107,12 @@ function placeBlock(x,y,type) {
 	image.tile = type;
 	image.src = type.texture;
         if(type.isLiquid != null) {
-	if(!testBlock(x,y+1,block.air)) {
-	   if(testBlock(x+1,y,block.air)) {
+	if(!testBlock(x,y+1,block.air) || !getBlock(x,y+1).isLiquid) {
+	   if(testBlock(x+1,y,block.air) || getBlock(x+1,y).isLiquid) {
 		   
              setTimeout(function() { placeBlock(x+1,y,type); }, 100);
 	}
-	 if(testBlock(x-1,y,block.air)) {
+	 if(testBlock(x-1,y,block.air) || getBlock(x-1,y).isLiquid) {
              setTimeout(function() { placeBlock(x-1,y,type); }, 100);
 	   }
 	} else {
