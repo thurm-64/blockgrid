@@ -91,7 +91,7 @@ createGrid();
 /// Game scripts
 function testBlock(x,y,type) {
 	var image = document.getElementById("block." + x + "." + y);
-	if(image.tile.name == type.name) {
+	if(image.tile == type) {
 	return true;
 	}
 	return false;
@@ -103,11 +103,11 @@ function placeBlock(x,y,type) {
 	image.tile = type;
 	image.src = type.texture;
         if(selectedTile.isLiquid != null) {
-	if(!testBlock(x,y+1,block.air) {
-	   if(!testBlock(x+1,y,block.air) {
+	if(!testBlock(x,y+1,block.air)) {
+	   if(!testBlock(x+1,y,block.air)) {
              placeBlock(x+1,y,type);
 	}
-	 if(!testBlock(x-1,y,block.air) {
+	 if(!testBlock(x-1,y,block.air)) {
 		placeBlock(x-1,y,type);
 	   }
 	} else {
