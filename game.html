@@ -33,7 +33,7 @@
 <script>
 
 
-var selectedTile = block.cobblestone;
+var selectedTile = block.stone;
 const worldHeight = 64;
 const worldWidth = 512;
 //Graphics scripts
@@ -44,19 +44,20 @@ function createGrid() {
 		   
 		   var value = block.air;
 		   image.id = "block." + x + "." + y;
+		   image.xpos = x;
+		   image.ypos = y;
 		   image.tile = value;
 		   image.src = value.texture;
 		   image.width = 32;
 		   image.height = 32;
 		   image.style = "background-color:skyblue"
-		   image.onclick = function() {
+		   image.onclick = function(e) {
 		        if(this.tile == block.air) {
-				this.tile = selectedTile;
-		   	this.src = selectedTile.texture;
-			} else {
-				this.tile = block.air;
-		   	this.src = block.air.texture;
+				placeBlock(this.xpos,this.ypos,selectedTile);
+			} else if {
+				placeBlock(this.xpos,this.ypos,block.air);	
 			}
+			 
 		   }
 		   document.body.appendChild(image);
 		
@@ -88,14 +89,33 @@ hotbarElement.appendChild(image);
 }
 createGrid();
 /// Game scripts
+function testBlock(x,y,type) {
+	var image = document.getElementById("block." + x + "." + y);
+	if(image.tile.name == type.name) {
+	return true;
+	}
+	return false;
+}
+		
 function placeBlock(x,y,type) {
 	var image = document.getElementById("block." + x + "." + y);
 	if(image != null) {
 	image.tile = type;
 	image.src = type.texture;
-
+        if(selectedTile.isLiquid != null) {
+	if(!testBlock(x,y+1,block.air) {
+	   if(!testBlock(x+1,y,block.air) {
+             placeBlock(x+1,y,type);
 	}
-
+	 if(!testBlock(x-1,y,block.air) {
+		placeBlock(x-1,y,type);
+	   }
+	} else {
+		placeBlock(x,y+1,type);
+	}
+	}
+	///More Block Handling
+	}
 }
 function fill(x1,y1,x2,y2,type) {
 	for(var x = x1; x < x2 + 1; x++) {
