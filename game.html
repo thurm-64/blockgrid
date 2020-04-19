@@ -395,43 +395,19 @@ moveTo(playerX, playerY);
 	setTimeout(move, 10);
 }
 move();
-window.addEventListener("keydown", onKeyDown, false);
-window.addEventListener("keyup", onKeyUp, false);
-function onKeyDown(event) {
-	window.alert("HelloWorld");
-  var keyCode = event.keyCode;
-  switch (keyCode) {
+	document.onkeypress = function (e) {
+    e = e || window.event;
+    // use e.keyCod
+		var keyCode = window.keycode;
+ switch (keyCode) {
     case 68: //d
-      keyD = true;
-      break;
-    case 83: //s
-      keyS = true;
-      break;
+    playerX += 1;
     case 65: //a
-      keyA = true;
-      break;
+   playerX -= 1;
     case 87: //w
-      keyW = true;
-      break;
+    //s can be left alone because no needy
   }
-}
+};
+ 
 
-function onKeyUp(event) {
-  var keyCode = event.keyCode;
-
-  switch (keyCode) {
-    case 68: //d
-      keyD = false;
-      break;
-    case 83: //s
-      keyS = false;
-      break;
-    case 65: //a
-      keyA = false;
-      break;
-    case 87: //w
-      keyW = false;
-      break;
-  }
-}
 </script>
