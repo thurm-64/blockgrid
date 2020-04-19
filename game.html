@@ -393,7 +393,7 @@ var name = "block." + x + "." + y;
 function move() {
 moveTo(playerX, playerY);	
 }
-document.addEventListener('keydown', keyDownHandler, false);
+
 function keyDownHandler(event) {
     if(event.keyCode == 39) {
       //right
@@ -412,6 +412,8 @@ function keyDownHandler(event) {
       //up
 	    playerY--;
     }
+	window.alert("key press!");
 	 moveTo(playerX,playerY);
 }
+		document.addEventListener('keydown', keyDownHandler, false);
 </script>
